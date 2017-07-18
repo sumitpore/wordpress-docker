@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  mysql_db_server:
+    image: mysql:5.7
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    depends_on:
+     - mysql_db_server
+    image: wordpress:4.7.3-php7.0-apache
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./php-ini:/usr/local/etc/php/php.ini
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql_db_server:3306
+      WORDPRESS_DB_PASSWORD: wordpress
+
+  phpmyadmin:
+    depends_on:
+      - mysql_db_server
+    image: phpmyadmin/phpmyadmin:edge
+    links:
+      - mysql_db_server:db
+    ports:
+      - 8001:80
+    environment:
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
