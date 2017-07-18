@@ -20,8 +20,8 @@ PHPMyAdmin can be accesssed as:
 ```
 
 MySQL Database Credentials are:
-* Username: wordpress
-* Password: wordpress
+* Username: `wordpress`
+* Password: `wordpress`
 
 ### Note
 * If you want to make changes in the php.ini file, then you can create php.ini file inside `php-ini` folder.
